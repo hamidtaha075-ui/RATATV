@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 const items = [
   { to: '/', key: 'home', icon: '🏠' },
-  { to: '/explore', key: 'explore', icon: '🧭' },
+  { to: '/live', key: 'live', icon: '📺' },
+  { to: '/movies', key: 'movies', icon: '🎬' },
+  { to: '/series', key: 'series', icon: '🎞️' },
   { to: '/countries', key: 'countries', icon: '🌍' },
   { to: '/languages', key: 'languages', icon: '🗣️' },
-  { to: '/genres', key: 'genres', icon: '🎵' },
-  { to: '/popular', key: 'popular', icon: '🔥' },
+  { to: '/genres', key: 'genres', icon: '📂' },
   { to: '/favorites', key: 'favorites', icon: '❤️' },
   { to: '/recent', key: 'recent', icon: '🕒' },
   { to: '/search', key: 'search', icon: '🔍' },

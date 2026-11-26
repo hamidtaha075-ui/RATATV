@@ -4,6 +4,9 @@ export const translations = {
     tagline: ' streamed TV from around the world',
     nav: {
       home: 'الرئيسية',
+      live: 'بث مباشر',
+      movies: 'أفلام',
+      series: 'مسلسلات',
       explore: 'استكشف',
       countries: 'الدول',
       languages: 'اللغات',
@@ -144,6 +147,9 @@ export const translations = {
     tagline: 'Global TV Streaming',
     nav: {
       home: 'Home',
+      live: 'Live TV',
+      movies: 'Movies',
+      series: 'Series',
       explore: 'Explore',
       countries: 'Countries',
       languages: 'Languages',
@@ -284,6 +290,9 @@ export const translations = {
     tagline: 'TV mondiale professionnelle',
     nav: {
       home: 'Accueil',
+      live: 'TV en direct',
+      movies: 'Films',
+      series: 'Séries',
       explore: 'Explorer',
       countries: 'Pays',
       languages: 'Langues',

@@ -33,6 +33,33 @@ export async function fetchStations(): Promise<Station[]> {
 }
 export async function fetchPopular(_limit = 50): Promise<Station[]> { return fetchStations(); }
 export async function fetchByLanguage(_lang: string, _limit = 50): Promise<Station[]> { return fetchStations(); }
+export async function fetchChannelsByCategory(category: string, countries: string[] = ['us', 'gb', 'fr', 'de']): Promise<Station[]> {
+  const { fetchCountryChannels } = await import('./channels');
+  const out: Station[] = [];
+  for (const c of countries) {
+    const chs = await fetchCountryChannels(c.toUpperCase());
+    for (const ch of chs) {
+      if ((ch.category || '').toLowerCase().includes(category.toLowerCase())) {
+        out.push({
+          id: ch.id, name: ch.name, country: ch.country, countryCode: ch.countryCode,
+          state: '', city: '', language: ch.language, languageCodes: [], languages: [],
+          tags: [ch.category], url: ch.url, urlRaw: ch.url, homepage: '', logo: ch.logo,
+          codec: 'HLS', bitrate: 0, hls: true, lastCheckOk: ch.stable, votes: 0, clickCount: 0, clickTrend: 0,
+        });
+      }
+    }
+  }
+  // dedupe by name
+  const seen = new Set<string>();
+  const deduped: Station[] = [];
+  for (const s of out) {
+    if (seen.has(s.name)) continue;
+    seen.add(s.name);
+    deduped.push(s);
+  }
+  return deduped.slice(0, 200);
+}
+
 export async function fetchByCountry(code: string, _limit = 1000): Promise<Station[]> {
   const { fetchCountryChannels } = await import('./channels');
   const chs = await fetchCountryChannels(code);

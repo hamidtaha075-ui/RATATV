@@ -1,6 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
+import Live from './pages/Live';
+import Movies from './pages/Movies';
+import Series from './pages/Series';
 import Explore from './pages/Explore';
 import Countries from './pages/Countries';
 import CountryDetail from './pages/CountryDetail';
@@ -20,6 +23,9 @@ export default function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/live" element={<Live />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/series" element={<Series />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/countries" element={<Countries />} />
         <Route path="/countries/:code" element={<CountryDetail />} />
