@@ -38,13 +38,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="page home-page">
-      <section className="hero">
-        <h1 className="hero-title">{t('app')}</h1>
-        <p className="hero-tagline">{t('tagline')}</p>
+    <div className="tv-home">
+      {/* Hero banner */}
+      <section className="hero-banner">
+        <div className="hero-content">
+          <h1 className="hero-title">{t('app')}</h1>
+          <p className="hero-tagline">{t('tagline')}</p>
+          <div className="hero-actions">
+            <button className="hero-btn primary" onClick={() => popular[0] && app.playStation(popular[0])}>
+              ▶ {t('player.play')}
+            </button>
+            <Link to="/live" className="hero-btn secondary">{t('nav.live')} →</Link>
+          </div>
+        </div>
       </section>
 
-      <section>
+      {/* Category quick access */}
+      <section className="content-row">
         <h2 className="row-title">{t('home.featured')}</h2>
         <div className="category-grid">
           {categories.map((c) => (
@@ -55,16 +65,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      {/* Live channels row */}
+      <section className="content-row">
         <div className="section-header">
           <h2 className="row-title">{t('home.popular')}</h2>
-          <Link to="/live">{t('common.open')} →</Link>
+          <Link to="/live" className="see-all">{t('common.open')} →</Link>
         </div>
         <StationList stations={popular} loading={loading} />
       </section>
 
+      {/* Movies row */}
+      <section className="content-row">
+        <div className="section-header">
+          <h2 className="row-title">{t('nav.movies')}</h2>
+          <Link to="/movies" className="see-all">{t('common.open')} →</Link>
+        </div>
+      </section>
+
+      {/* Series row */}
+      <section className="content-row">
+        <div className="section-header">
+          <h2 className="row-title">{t('nav.series')}</h2>
+          <Link to="/series" className="see-all">{t('common.open')} →</Link>
+        </div>
+      </section>
+
       {app.recent.length > 0 && (
-        <section>
+        <section className="content-row">
           <h2 className="row-title">{t('home.recent')}</h2>
           <StationList stations={app.recent.map((r) => r.station)} />
         </section>
