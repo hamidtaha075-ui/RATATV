@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../../context/AppContext';
@@ -8,6 +9,10 @@ export default function Player() {
   const { t } = useTranslation();
   const app = useApp();
   const { currentStation, status, error, volume, muted } = app;
+
+  const { ref: overlayRef, focused: overlayFocused } = useFocusable({
+    onEnterPress: () => { if (status === 'playing') app.pause(); else app.resume(); },
+  });
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -27,7 +32,7 @@ export default function Player() {
   }
 
   return (
-    <div className="player-overlay">
+    <div ref={overlayRef} className={`player-overlay ${overlayFocused ? 'focused' : ''}`} tabIndex={0}>
       <div className="player-video-wrap">
         {/* video element is managed by engine in #ratatv-video-container; this is the backdrop */}
       </div>

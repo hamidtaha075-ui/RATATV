@@ -39,13 +39,13 @@ export default function Home() {
 
   return (
     <div className="page home-page">
-      <section>
-        <h1 className="page-title">{t('app')}</h1>
-        <p className="tagline">{t('tagline')}</p>
+      <section className="hero">
+        <h1 className="hero-title">{t('app')}</h1>
+        <p className="hero-tagline">{t('tagline')}</p>
       </section>
 
       <section>
-        <h2>{t('home.featured')}</h2>
+        <h2 className="row-title">{t('home.featured')}</h2>
         <div className="category-grid">
           {categories.map((c) => (
             <Link key={c.key} to={c.to} className="category-card" style={{ background: c.color }}>
@@ -57,15 +57,15 @@ export default function Home() {
 
       <section>
         <div className="section-header">
-          <h2>{t('home.popular')}</h2>
-          <Link to="/popular">{t('common.open')} →</Link>
+          <h2 className="row-title">{t('home.popular')}</h2>
+          <Link to="/live">{t('common.open')} →</Link>
         </div>
         <StationList stations={popular} loading={loading} />
       </section>
 
       {app.recent.length > 0 && (
         <section>
-          <h2>{t('home.recent')}</h2>
+          <h2 className="row-title">{t('home.recent')}</h2>
           <StationList stations={app.recent.map((r) => r.station)} />
         </section>
       )}

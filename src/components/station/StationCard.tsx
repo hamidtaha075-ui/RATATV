@@ -1,16 +1,21 @@
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { countryCodeToFlag } from '../../utils/flags';
 
 export default function StationCard({ station, onPlay }: { station: any; onPlay?: (s: any) => void }) {
   const app = useApp();
+  const { ref, focused } = useFocusable({
+    onEnterPress: () => (onPlay ? onPlay(station) : app.playStation(station)),
+  });
+
   return (
-    <div className="station-card">
+    <div ref={ref} className={`station-card ${focused ? 'focused' : ''}`} tabIndex={0}>
       <div className="station-logo-wrap">
         {station.logo ? (
           <img src={station.logo} alt="" className="station-logo" loading="lazy" onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')} />
         ) : (
-          <div className="station-logo placeholder">📻</div>
+          <div className="station-logo placeholder">📺</div>
         )}
       </div>
       <div className="station-info">
@@ -25,13 +30,7 @@ export default function StationCard({ station, onPlay }: { station: any; onPlay?
       </div>
       <div className="station-actions">
         <button className="play-btn" onClick={() => (onPlay ? onPlay(station) : app.playStation(station))}>▶</button>
-        <button
-          className="fav-btn"
-          onClick={() => app.toggleFavorite(station)}
-          aria-label="favorite"
-        >
-          {app.isFavorite(station.id) ? '❤️' : '🤍'}
-        </button>
+        <button className="fav-btn" onClick={() => app.toggleFavorite(station)}>{app.isFavorite(station.id) ? '❤️' : '🤍'}</button>
         <Link to={`/station/${encodeURIComponent(station.id)}`} className="detail-link">ℹ️</Link>
       </div>
     </div>

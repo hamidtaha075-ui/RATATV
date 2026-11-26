@@ -32,6 +32,7 @@
     "@capacitor/android": "^8.6.3",
     "@capacitor/cli": "^8.6.3",
     "@capacitor/core": "^8.6.3",
+    "@noriginmedia/norigin-spatial-navigation": "^3.4.0",
     "i18next": "^27.2.9",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
