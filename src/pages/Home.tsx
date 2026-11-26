@@ -1,0 +1,74 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useApp } from '../context/AppContext';
+import { fetchPopular } from '../services/radioBrowser';
+import StationList from '../components/station/StationList';
+import { Link } from 'react-router-dom';
+
+const categories = [
+  { key: 'news', to: '/genres/news', color: '#455a64' },
+  { key: 'music', to: '/genres/entertainment', color: '#ad1457' },
+  { key: 'talk', to: '/genres/talk', color: '#5d4037' },
+  { key: 'international', to: '/explore', color: '#00838f' },
+];
+
+export default function Home() {
+  const { t } = useTranslation();
+  const app = useApp();
+  const [popular, setPopular] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const p = await fetchPopular(40);
+        if (cancelled) return;
+        setPopular(p);
+        app.setQueue(p);
+      } catch {
+        // ignore
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <div className="page home-page">
+      <section>
+        <h1 className="page-title">{t('app')}</h1>
+        <p className="tagline">{t('tagline')}</p>
+      </section>
+
+      <section>
+        <h2>{t('home.featured')}</h2>
+        <div className="category-grid">
+          {categories.map((c) => (
+            <Link key={c.key} to={c.to} className="category-card" style={{ background: c.color }}>
+              <span>{t(`categories.${c.key}`)}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="section-header">
+          <h2>{t('home.popular')}</h2>
+          <Link to="/popular">{t('common.open')} →</Link>
+        </div>
+        <StationList stations={popular} loading={loading} />
+      </section>
+
+      {app.recent.length > 0 && (
+        <section>
+          <h2>{t('home.recent')}</h2>
+          <StationList stations={app.recent.map((r) => r.station)} />
+        </section>
+      )}
+    </div>
+  );
+}

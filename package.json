@@ -1,0 +1,53 @@
+{
+  "name": "ratatv",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron:build": "npm run build && electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.ratatv.app",
+    "productName": "RATATV",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/icon.ico"
+    }
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.3",
+    "@capacitor/cli": "^8.6.3",
+    "@capacitor/core": "^8.6.3",
+    "i18next": "^27.2.9",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-i18next": "^18.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^45.5.0",
+    "electron-builder": "^26.18.0",
+    "hls.js": "^1.7.4",
+    "oxlint": "^1.90.0",
+    "react-router-dom": "^7.18.7",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.6"
+  }
+}
